@@ -14,12 +14,33 @@ function setTime({ seconds }) {
 
 player.on('timeupdate', throttle(setTime, 1000));
 
-function getTime() {
-  try {
-    return localStorage.getItem('videoplayer-current-time') || 0;
-  } catch (error) {
-    console.error('Get err', error.message);
-  }
-}
+// function getTime() {
+//   try {
+//     return localStorage.getItem('videoplayer-current-time') || 0;
+//   } catch (error) {
+//     console.error('Get err', error.message);
+//   }
+// }
 
-player.setCurrentTime(getTime());
+// player.setCurrentTime(getTime());
+// --------------------------------------------------------------------------------
+
+const saveTime = localStorage.getItem('videoplayer-current-time') || 0;
+const currentTime = JSON.parse(saveTime);
+
+player
+  .setCurrentTime(currentTime)
+  .then(function (seconds) {
+    // seconds = the actual time that the player seeked to
+  })
+  .catch(function (error) {
+    switch (error.name) {
+      case 'RangeError':
+        // the time was less than 0 or greater than the video’s duration
+        break;
+
+      default:
+        // some other error occurred
+        break;
+    }
+  });
