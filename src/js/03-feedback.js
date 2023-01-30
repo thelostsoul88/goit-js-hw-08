@@ -14,7 +14,7 @@ let values = {
   message,
 };
 
-function setLocalStorage(e) {
+function setLocalStorage() {
   try {
     values.email = email.value;
     values.message = message.value;
@@ -26,8 +26,8 @@ function setLocalStorage(e) {
 
 function getLocalSorage() {
   try {
-    const getStorege = localStorage.getItem(KEY);
-    const getParce = JSON.parse(getStorege);
+    const getStorage = localStorage.getItem(KEY);
+    const getParce = JSON.parse(getStorage);
     if (getParce) {
       email.value = getParce.email;
       message.value = getParce.message;
@@ -43,7 +43,7 @@ function onSubmit(e) {
     alert('Heyup! form must be completed');
     return;
   }
-  console.log(`  Email: ${email.value}, 
+  console.log(`  Email: ${email.value},
   Message: ${message.value}`);
   e.currentTarget.reset();
   localStorage.removeItem(KEY);
